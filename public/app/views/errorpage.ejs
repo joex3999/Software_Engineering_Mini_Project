@@ -1,0 +1,15 @@
+<%include _header1 %>
+<%if(variab){%>
+<div class = "row show-hide-message" >
+
+<div class = "alert alert-danger"> 
+		<h4> <%=message%></h4>
+		</div>
+			</div>
+	<%}else{%>
+<div class = "alert alert-success"> 
+		<h4> <%=message%> </h4>
+		</div>
+	<%}%>
+
+<%include _footer1 %>

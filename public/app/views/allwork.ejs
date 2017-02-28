@@ -1,0 +1,23 @@
+<% include _header1 %>
+
+<h3><u> All People On The Website : </u></h3>
+<%if (portfolios.length>0){%>
+<%for (var i =0 ; i<portfolios.length;i++){ %>
+<h3><bold> <em> <%= portfolios[i].username%></em> </bold> </h3>
+<div class="panel panel-default">
+    <div class="panel-heading">
+     <% var url = portfolios[i].profilePicture.substring(6);%>
+      <a href="/viewwork/<%= portfolios[i].username %>">
+      <img src="<%=url%>" style="width:100%;height:300px;">
+   
+      </a>
+    </div>
+  </div>
+<hr>
+<%}}else{%>
+<div class = "alert alert-danger"> 
+		<h4> No user portfolios are currenty present. Please come again later  </h4>
+		</div>
+		
+<%}%>
+<% include _footer1 %>

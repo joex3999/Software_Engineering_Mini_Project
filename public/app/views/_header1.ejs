@@ -1,0 +1,76 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <!--  Cascade style Sheer-->
+   <link rel ="stylesheet" type = "text/css" href = "../../assets/css/bootstrap.css">
+   <link rel = "stylesheet" type = "text/css" href = "../../assets/css/animate.css">
+   <link rel = "stylesheet" type = "text/css" href = "../../assets/css/style.css">
+   <!-- Main Angular Files -->
+   <script src = "assets/js/angular.js"> </script>
+   <script src ="assets/js/angular-route.js"> </script>
+   <script src = " assets/js/angular-animate.js"></script>
+<!-- Angular config and router -->
+   <script src = "app/app.js"> </script>
+   
+   <script src = "app/controllers/userCtrl.js"></script>
+   
+
+
+    <title>Department Portoflio System</title>
+
+ 
+  </head>
+
+  <body ng-app = "userApp">
+
+    <!-- Fixed navbar -->
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="/">Welcome</a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+          <ul class="nav navbar-nav">
+            <li class="active"><a href="/">Home</a></li>
+            <li><a href="/viewall">View protfolios</a></li>
+            <li><a href="/about">About</a></li>
+            <% if(!(currentUser)){%>
+            <li><a href="/login">Login</a></li>
+            <li><a href="/register">Register</a></li>
+            <% }%>
+          
+
+            <%if(( currentUser)){ %>
+            <li><a href="/logout">Log Out</a> </li>
+             <li><a href="/addportfolio">Make a portfolio</a></li>
+            <li><a href="/viewyw">View your work</a></li>
+          <li><a href="/addwork">Add to your work</a></li>
+
+            <% } %>
+
+          </ul>
+        </div><!--/.nav-collapse -->
+      </div>
+    </nav>
+
+    <div class="container theme-showcase" role="main">
+
+      <!-- Main jumbotron for a primary marketing message or call to action -->
+      <div class="jumbotron">
+        <h1> Welcome </h1>
+        <p>Welcome to our humble website . Here you could upload your magnificent work to be viewed by lots of clients to faciliate the job managment system. Please enjoy your visit ! :D </p>
+      </div>
