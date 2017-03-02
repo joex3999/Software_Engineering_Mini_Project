@@ -23,13 +23,21 @@
 
 			cb(null, Date.now()  + path.extname(file.originalname));
 		}
+	
 	});
+
 
 
 	const upload = multer({
-		storage: storage
+		storage: storage,
+		 fileFilter: function (req, file, callback) {
+        var ext = path.extname(file.originalname);
+        if(ext !== '.png' && ext !== '.jpg' && ext !== '.gif' && ext !== '.jpeg') {
+            return callback(new Error('Only images are allowed'))
+        }
+        callback(null, true)
+    }
 	});
-
 
 
 
@@ -90,8 +98,14 @@
 				portfolio.name = req.body.name;
 				portfolio.username = res.locals.currentUser.username;
 				
-				if(req.file)
+				if(req.file){
 					portfolio.profilePicture = image.path;
+				}else{
+					portfolio.profilePicture = "public/uploads/defaultpp.jpg";
+				}
+
+
+
 
 
 				portfolio.save(function(err){	
@@ -148,13 +162,13 @@
 						var pageSize = 4;
 						var pageCount = Math.ceil(works.length/pageSize); 
 						if(req.query.page){
-						var currentPage = req.query.page;}else{
-							var currentPage = 1;
-						}
-					
-				
-						res.render("yourwork.ejs",{url,name,works,pageSize,pageCount,currentPage});
-					});
+							var currentPage = req.query.page;}else{
+								var currentPage = 1;
+							}
+
+
+							res.render("yourwork.ejs",{portfolio,url,name,works,pageSize,pageCount,currentPage});
+						});
 				}else{
 					var variab = true ;
 					var message = "You dont have a portfolio yet . please fill one in";
@@ -195,10 +209,64 @@
 		});
 
 
+	//DELETE 
+	router.get('/delete/:_id',function(req,res){
+		console.log(req.param("_id"))
+		Work.findOneAndRemove({_id:req.param("_id")},function(err,res){
+			if(err)
+				console.log(err);
+			console.log(res);
+		});
+
+			  res.redirect(req.get('referer')); // to simply refresh
+
+			});
+
+		//UPDATE 
+
+		router.post('/update',function(req,res){
+			console.log(req.query._id);
+
+			console.log(req.body.texty);
+			Work.findOneAndUpdate({_id:req.param("_id")},{details:req.body.texty},function(err,res){
+				if(err)
+					console.log(err);
+
+			});
+
+			  res.redirect(req.get('referer')); // to simply refresh
+
+			});
+
+		//UPDATE PP
+
+		router.post('/ppupdate',upload.single('pp'),function(req,res){
+
+
+			var image = req.file;
+			if(image){
+				Portfolio.findOneAndUpdate({_id:req.query.id},{profilePicture:image.path},function(err,res){
+					if(err)
+						return err ;
+
+
+				});}
+				res.redirect(req.get('referer'));
+			});
+		// DELETE PP 
+		router.post('/ppdelete',function(req,res){
 
 
 
+			Portfolio.findOneAndUpdate({_id:req.query.id},{profilePicture:"public/uploads/defaultpp.jpg"},function(err,res){
+				if(err)
+					return err ;
 
+				console.log("2y 7aga ");
+				
+			});
+			res.redirect(req.get('referer'));
+		});
 
 		router.post('/addwork',upload.single("image"),ensureAuthenticated,function(req,res) {
 			if(!req.file&&!req.body.url&&!req.body.details){
@@ -264,16 +332,16 @@
 					var url  = portfolio.profilePicture;
 					var name =  portfolio.name;
 					Work.find({pid:portfolio._id},function(err,works){
-							var pageSize = 4;
+						var pageSize = 4;
 						var pageCount = Math.ceil(works.length/pageSize); 
 						if(req.query.page){
-						var currentPage = req.query.page;}else{
-							var currentPage = 1;
-						}
-					
+							var currentPage = req.query.page;}else{
+								var currentPage = 1;
+							}
 
-						res.render("indivWork.ejs",{username,name,url,works,pageSize,pageCount,currentPage});
-					});
+
+							res.render("indivWork.ejs",{username,name,url,works,pageSize,pageCount,currentPage});
+						});
 				}else{
 					var variab = true ;
 					var message = "Error Occured !.";
@@ -314,5 +382,7 @@
 
 			res.render("index2.ejs");
 		});
+
+
 		return router ;
 	}
