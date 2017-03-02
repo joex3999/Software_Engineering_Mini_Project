@@ -1,9 +1,13 @@
 <% include _header1%>
-<h3><strong> <big><%= currentUser.username %>'s</big></strong> Information : </h3>
+<h3><strong> <big><%= name %>'s</big></strong> Information : </h3>
 <hr>
+<%if(url){%>
 <%var url = url.substring(7); %>
 <h4><u>Profile Picture  :</u></h4><img src="<%=url%>" style="width:300px;height:300px;">
-<%for (var i =0 ; i<works.length;i++) {%>
+<%} else {%>
+<h4><u>Profile Picture  :</u></h4><img src="/uploads/defaultpp.jpg" style="width:500px;height:300px;">
+<%}%>
+<%for (var i =(currentPage-1)*pageSize ; i<works.length&&i<(currentPage-1)*pageSize+pageSize;i++) {%>
 <hr>
 <% if (works[i].type==1) { %>
 <h4><u>Work Details </u></h4><h3><a><%=works[i].details%></a></h3>
@@ -12,11 +16,42 @@
 <h4><u>Extra Links for your work: </u></h4><h3><a href="<%=works[i].details%>"><%=works[i].details%></a></h3>
 <hr>
 <% }else {%>
-<% var temp = works[i].details.substring(7);%>
+<% var temp = works[i].details.substring(6);%>
+<%console.log("temp is + " + temp);%>
 <h4><u>ScreenShot : </u></h4>
 <br> <img src="<%=temp%>" style=" margin:auto ;width:100%; height:80%;">
 <br>
 <br>
 <hr>
 <% }}}%>
+
+
+
+<% if (pageCount > 1) { %>  
+<ul class="pagination">  
+  <% if (currentPage > 1) { %>
+      <li><a href="/viewyw/?page=1">&laquo;</a></li>
+  <% } %>
+  <% var i = 1;
+  if (currentPage > 5) {
+  i = +currentPage - 4;
+  } %>
+  <% if (i !== 1) { %>
+      <li class="disabled"><a href="#">...</a></li>
+  <% } %>
+  <% for (i; i<=pageCount; i++) { %>
+    <% if (currentPage == i) { %>
+        <li class="active"><span><%= i %> <span class="sr-only">(current)</span></span></li>
+    <% } else { %>
+        <li><a href="/viewyw/?page=<%= i %>"><%= i %></a></li>
+    <% } %>
+    <% if (i == (+currentPage + 4)) { %>
+        <li class="disabled"><a href="#">...</a></li>
+    <% break; } %>
+  <% } %>
+  <% if (currentPage != pageCount) { %>
+      <li><a href="/viewyw/?page=<%= pageCount %>">&raquo;</a></li>
+  <% } %>
+</ul>  
+<% } %>  
 <%include _footer1 %>

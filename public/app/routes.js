@@ -63,9 +63,19 @@
 			Portfolio.find(function(err,portfolios){
 				if(err)
 					res.send(err.message);
-				else
-					res.render('allwork',{portfolios});
-			})
+				else{
+
+					var pageSize = 10 ;
+					if(req.query.page){
+						var currentPage = req.query.page;}else{
+							var currentPage = 1;
+						}
+						var pageCount = Math.ceil(portfolios.length/pageSize);
+						console.log(pageCount);
+						console.log(currentPage);
+						res.render('allwork',{portfolios,pageCount,currentPage,pageSize});
+					}
+				})
 		});
 
 
@@ -73,16 +83,17 @@
 			
 
 
-			if(req.file&&(req.body.details||req.body.url)){
+			if((req.body.details||req.body.url)){
 				
 				var portfolio = new Portfolio();
 				var image = req.file;
+				portfolio.name = req.body.name;
 				portfolio.username = res.locals.currentUser.username;
 				
+				if(req.file)
+					portfolio.profilePicture = image.path;
 
-				portfolio.profilePicture = image.path;
 
-				console.log("this is the file  path " + image.path );
 				portfolio.save(function(err){	
 					if(err)
 
@@ -132,11 +143,17 @@
 			Portfolio.findOne({username :res.locals.currentUser.username},function(err,portfolio){
 				if(portfolio){
 					var url  = portfolio.profilePicture;
-					
+					var name = portfolio.name;
 					Work.find({pid:portfolio._id},function(err,works){
-						
-						console.log("works are " + works);
-						res.render("yourwork.ejs",{url,works});
+						var pageSize = 4;
+						var pageCount = Math.ceil(works.length/pageSize); 
+						if(req.query.page){
+						var currentPage = req.query.page;}else{
+							var currentPage = 1;
+						}
+					
+				
+						res.render("yourwork.ejs",{url,name,works,pageSize,pageCount,currentPage});
 					});
 				}else{
 					var variab = true ;
@@ -240,16 +257,22 @@
 		
 		router.get('/viewwork/:username',function(req,res){
 
-			var username = req.params.username;
+			var username = req.param("username");
 
 			Portfolio.findOne({username :username},function(err,portfolio){
 				if(portfolio){
 					var url  = portfolio.profilePicture;
-					
+					var name =  portfolio.name;
 					Work.find({pid:portfolio._id},function(err,works){
-						
+							var pageSize = 4;
+						var pageCount = Math.ceil(works.length/pageSize); 
+						if(req.query.page){
+						var currentPage = req.query.page;}else{
+							var currentPage = 1;
+						}
+					
 
-						res.render("indivWork.ejs",{username,url,works});
+						res.render("indivWork.ejs",{username,name,url,works,pageSize,pageCount,currentPage});
 					});
 				}else{
 					var variab = true ;
@@ -264,12 +287,12 @@
 		router.get('/login',function(req,res){
 			
 			var variab = false ;
-			res.render('login.ejs',{variab});
+			var errors = res.locals.errors;
+
+
+			res.render('login.ejs',{variab,errors,});
 		});
-		router.get('/login2',function(req,res){
-			var variab = false ;
-			res.render('login2.ejs',{variab});
-		});
+
 
 		router.get('/logout',function(req,res){
 			req.logout();
@@ -282,7 +305,7 @@
 
 		router.post("/login", passport.authenticate("login", {
 			successRedirect: "/",
-			failureRedirect: "/login2",
+			failureRedirect: "/login",
 			failureFlash: true
 		}));
 

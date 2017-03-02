@@ -33,6 +33,14 @@ place holder = "please enter password" ng-model="register.regData.password"
 			</div>
 	<%}%>
 
+<%if(errors.length>0){%>
+<div class = "row show-hide-message" >
+
+<div class = "alert alert-danger"> 
+		<h4> <%= errors%> </h4>
+		</div>
+			</div>
+	<%}%>
 
 
 <% include  _footer1 %>
