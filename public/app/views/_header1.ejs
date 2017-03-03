@@ -13,27 +13,28 @@
    <link rel ="stylesheet" type = "text/css" href = "../../assets/css/bootstrap.css">
    <link rel = "stylesheet" type = "text/css" href = "../../assets/css/animate.css">
    <link rel = "stylesheet" type = "text/css" href = "../../assets/css/style.css">
+   <link rel = "stylesheet" type = "text/css" href = "../../assets/css/own.css">
    <!-- Main Angular Files -->
    <script src = "assets/js/angular.js"> </script>
    <script src ="assets/js/angular-route.js"> </script>
    <script src = " assets/js/angular-animate.js"></script>
 <!-- Angular config and router -->
    <script src = "app/app.js"> </script>
-   
+
    <script src = "app/controllers/userCtrl.js"></script>
-   
+
 
 
     <title>Department Portoflio System</title>
 
- 
+
   </head>
 
   <body ng-app = "userApp">
 
     <!-- Fixed navbar -->
-    <nav class="navbar navbar-inverse navbar-fixed-top">
-      <div class="container">
+    <nav class="navbar navbar-inverse navbar-fixed-top"id = "own">
+      <div class="container" >
         <div class="navbar-header">
           <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
             <span class="sr-only">Toggle navigation</span>
@@ -41,7 +42,8 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="/">Welcome</a>
+
+          <a class="navbar-brand" href="/" class = "own1">Welcome</a>
         </div>
         <div id="navbar" class="navbar-collapse collapse">
           <ul class="nav navbar-nav">
@@ -52,7 +54,7 @@
             <li><a href="/login">Login</a></li>
             <li><a href="/register">Register</a></li>
             <% }%>
-          
+
 
             <%if(( currentUser)){ %>
             <li><a href="/logout">Log Out</a> </li>
