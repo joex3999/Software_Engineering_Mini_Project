@@ -3,22 +3,26 @@
     <h3><u><p style = " font-family:‘Palatino Linotype’, ‘Book Antiqua’, Palatino, serif;"> All People On The Website : </p></u></h3>
     <%if (portfolios.length>0){%>
         <%for (var i =(currentPage-1)*pageSize ; i<portfolios.length&&i<(currentPage-1)*pageSize+pageSize;i++){ %>
-            <h3 style = "  color 	:#b36b00;font-family:‘Palatino Linotype’, ‘Book Antiqua’, Palatino, serif;"><bold> <big><em> <%= portfolios[i].name%></em> </bold></big> </h3>
+            <h3 style = "  text-decoration: underline; color 	:#264d00;font-family:‘Palatino Linotype’, ‘Book Antiqua’, Palatino, serif;"><bold> <big><em> <%= portfolios[i].name%>:</em> </bold></big> </h3>
 
             <%if(portfolios[i].profilePicture){%>
                 <% var url = portfolios[i].profilePicture.substring(6);%>
                     <a href="/viewwork/<%= portfolios[i].username %>">
-      <img src="<%=url%>" style="width:30%;height:300px;">
+      <img src="<%=url%>" style= " width:30%;height:300px;">
 
       </a>
                     <%}else{%>
                         <a href="/viewwork/<%= portfolios[i].username %>">
-                            <img src="/uploads/defaultpp.jpg" style="width:30%;height:300px;">
+                            <img src="/uploads/defaultpp.jpg" style="  width:30%;height:300px;">
 
                         </a>
                         <%}%>
+                        <div class = "Own">
 
-                            <hr>
+                        </div>
+                            <hr class = "HR">
+                            <hr class = "HR">
+                            <hr class = "HR">
                             <%}}else{%>
                                 <div class="alert alert-danger">
                                     <h4> No user portfolios are currenty present. Please come again later  </h4>
