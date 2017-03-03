@@ -1,58 +1,63 @@
 <% include _header1 %>
 
-<h3><u> All People On The Website : </u></h3>
-<%if (portfolios.length>0){%>
-<%for (var i =(currentPage-1)*pageSize ; i<portfolios.length&&i<(currentPage-1)*pageSize+pageSize;i++){ %>
-<h3><bold> <big><em> <%= portfolios[i].name%></em> </bold></big> </h3>
+    <h3><u> All People On The Website : </u></h3>
+    <%if (portfolios.length>0){%>
+        <%for (var i =(currentPage-1)*pageSize ; i<portfolios.length&&i<(currentPage-1)*pageSize+pageSize;i++){ %>
+            <h3><bold> <big><em> <%= portfolios[i].name%></em> </bold></big> </h3>
 
-    <%if(portfolios[i].profilePicture){%>
-     <% var url = portfolios[i].profilePicture.substring(6);%>
-      <a href="/viewwork/<%= portfolios[i].username %>">
+            <%if(portfolios[i].profilePicture){%>
+                <% var url = portfolios[i].profilePicture.substring(6);%>
+                    <a href="/viewwork/<%= portfolios[i].username %>">
       <img src="<%=url%>" style="width:30%;height:300px;">
-   
+
       </a>
-      <%}else{%>
-      <a href="/viewwork/<%= portfolios[i].username %>">
-    <img src="/uploads/defaultpp.jpg" style="width:30%;height:300px;">
-   
-      </a>
-      <%}%>
- 
-<hr>
-<%}}else{%>
-<div class = "alert alert-danger"> 
-		<h4> No user portfolios are currenty present. Please come again later  </h4>
-		</div>
-		
-<%}%>
+                    <%}else{%>
+                        <a href="/viewwork/<%= portfolios[i].username %>">
+                            <img src="/uploads/defaultpp.jpg" style="width:30%;height:300px;">
+
+                        </a>
+                        <%}%>
+
+                            <hr>
+                            <%}}else{%>
+                                <div class="alert alert-danger">
+                                    <h4> No user portfolios are currenty present. Please come again later  </h4>
+                                </div>
+
+                                <%}%>
 
 
 
-<% if (pageCount > 1) { %>  
-<ul class="pagination">  
-  <% if (currentPage > 1) { %>
-      <li><a href="/viewall/?page=1">&laquo;</a></li>
-  <% } %>
-  <% var i = 1;
+                                    <% if (pageCount > 1) { %>
+                                        <ul class="pagination">
+                                            <% if (currentPage > 1) { %>
+                                                <li><a href="/viewall/?page=1">&laquo;</a></li>
+                                                <% } %>
+                                                    <% var i = 1;
   if (currentPage > 5) {
   i = +currentPage - 4;
   } %>
-  <% if (i !== 1) { %>
-      <li class="disabled"><a href="#">...</a></li>
-  <% } %>
-  <% for (i; i<=pageCount; i++) { %>
-    <% if (currentPage == i) { %>
-        <li class="active"><span><%= i %> <span class="sr-only">(current)</span></span></li>
-    <% } else { %>
-        <li><a href="/viewall/?page=<%= i %>"><%= i %></a></li>
-    <% } %>
-    <% if (i == (+currentPage + 4)) { %>
-        <li class="disabled"><a href="#">...</a></li>
-    <% break; } %>
-  <% } %>
-  <% if (currentPage != pageCount) { %>
-      <li><a href="/viewall/?page=<%= pageCount %>">&raquo;</a></li>
-  <% } %>
-</ul>  
-<% } %>  
-<% include _footer1 %>
+                                                        <% if (i !== 1) { %>
+                                                            <li class="disabled"><a href="#">...</a></li>
+                                                            <% } %>
+                                                                <% for (i; i<=pageCount; i++) { %>
+                                                                    <% if (currentPage == i) { %>
+                                                                        <li class="active"><span><%= i %> <span class="sr-only">(current)</span></span>
+                                                                        </li>
+                                                                        <% } else { %>
+                                                                            <li>
+                                                                                <a href="/viewall/?page=<%= i %>">
+                                                                                    <%= i %>
+                                                                                </a>
+                                                                            </li>
+                                                                            <% } %>
+                                                                                <% if (i == (+currentPage + 4)) { %>
+                                                                                    <li class="disabled"><a href="#">...</a></li>
+                                                                                    <% break; } %>
+                                                                                        <% } %>
+                                                                                            <% if (currentPage != pageCount) { %>
+                                                                                                <li><a href="/viewall/?page=<%= pageCount %>">&raquo;</a></li>
+                                                                                                <% } %>
+                                        </ul>
+                                        <% } %>
+                                            <% include _footer1 %>
