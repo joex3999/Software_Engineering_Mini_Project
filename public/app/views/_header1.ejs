@@ -43,7 +43,11 @@
             <span class="icon-bar"></span>
           </button>
 
+          <%if(!(currentUser)){%>
           <a class="navbar-brand" href="/" class = "own1" >Welcome</a>
+          <%}else {%>
+                <a class="navbar-brand" href="/" class = "own1" >Welcome :  <%= currentUser.username%></a>
+            <%}%>
         </div>
         <div id="navbar" class="navbar-collapse collapse">
           <ul class="nav navbar-nav">
@@ -57,11 +61,11 @@
 
 
             <%if(( currentUser)){ %>
-            <li><a href="/logout">Log Out</a> </li>
+
              <li><a href="/addportfolio">Make a portfolio</a></li>
             <li><a href="/viewyw">View your work</a></li>
           <li><a href="/addwork">Add to your work</a></li>
-
+  <li style = "text-align: righ;"><a href="/logout">Log Out</a> </li>
             <% } %>
 
           </ul>

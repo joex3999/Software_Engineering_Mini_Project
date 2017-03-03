@@ -97,59 +97,69 @@
 	    router.post('/addportfolio', upload.single('pp'), function(req, res, next) {
 
 
+	        if (req.body.name) {
+	            if ((req.body.details || req.body.url)) {
 
-	        if ((req.body.details || req.body.url)) {
+	                var portfolio = new Portfolio();
+	                var image = req.file;
+	                portfolio.name = req.body.name;
+	                portfolio.username = res.locals.currentUser.username;
 
-	            var portfolio = new Portfolio();
-	            var image = req.file;
-	            portfolio.name = req.body.name;
-	            portfolio.username = res.locals.currentUser.username;
+	                if (req.file) {
+	                    portfolio.profilePicture = image.path;
+	                } else {
+	                    portfolio.profilePicture = "public/uploads/defaultpp.jpg";
+	                }
 
-	            if (req.file) {
-	                portfolio.profilePicture = image.path;
+
+
+
+
+	                portfolio.save(function(err) {
+	                    if (err)
+
+	                        return err;
+	                });
+
+
+	                if (req.body.details) {
+
+	                    var work = new Work();
+	                    work.pid = portfolio._id;
+	                    work.details = req.body.details;
+	                    work.type = 1;
+	                    work.save();
+	                }
+
+	                if (req.body.url) {
+	                    var work2 = new Work();
+	                    work2.pid = portfolio._id;
+	                    work2.details = req.body.url;
+	                    work2.type = 2;
+	                    work2.save();
+	                }
+
+
+	                var variab = false;
+	                var message = "You filled a portfolio successfully :D";
+	                res.render("errorpage.ejs", {
+	                    variab,
+	                    message
+	                });
 	            } else {
-	                portfolio.profilePicture = "public/uploads/defaultpp.jpg";
+	                var variab = true;
+	                var message = "you have to insert at least 1 work";
+	                res.render("addPortfolio.ejs", {
+	                    variab,
+	                    message
+	                });
 	            }
-
-
-
-
-
-	            portfolio.save(function(err) {
-	                if (err)
-
-	                    return err;
-	            });
-
-
-	            if (req.body.details) {
-
-	                var work = new Work();
-	                work.pid = portfolio._id;
-	                work.details = req.body.details;
-	                work.type = 1;
-	                work.save();
-	            }
-
-	            if (req.body.url) {
-	                var work2 = new Work();
-	                work2.pid = portfolio._id;
-	                work2.details = req.body.url;
-	                work2.type = 2;
-	                work2.save();
-	            }
-
-
-	            var variab = false;
-	            var message = "You filled a portfolio successfully :D";
-	            res.render("errorpage.ejs", {
-	                variab,
-	                message
-	            });
 	        } else {
 	            var variab = true;
+	            var message = "Please insert your name";
 	            res.render("addPortfolio.ejs", {
-	                variab
+	                variab,
+	                message
 	            });
 	        }
 
@@ -183,7 +193,7 @@
 	                        var currentPage = 1;
 	                    }
 
-							console.log(url);
+	                    console.log(url);
 	                    res.render("yourwork.ejs", {
 	                        portfolio,
 	                        url,
@@ -237,6 +247,7 @@
 	            } else {
 
 	                var variab = false;
+
 	                res.render("addPortfolio.ejs", {
 	                    variab
 	                });
@@ -287,7 +298,7 @@
 
 	    router.post('/ppupdate', upload.single('pp'), function(req, res) {
 
-	console.log("pass");
+	        console.log("pass");
 	        var image = req.file;
 	        if (image) {
 	            Portfolio.findOneAndUpdate({

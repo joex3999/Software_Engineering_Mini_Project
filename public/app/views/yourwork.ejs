@@ -2,59 +2,34 @@
     <h3><strong> <big><%= name %>'s</big></strong> Information : </h3>
     <hr>
     <%if(url!="public/uploads/defaultpp.jpg"){%>
-      <% console.log(url);%>
-        <%var url = url.substring(6); %>
-            <h4><u>Profile Picture  :</u></h4><img src="<%=url%>" style=" width:300px;height:300px;">
-            <form method="POST" action="/ppdelete/?id=<%=portfolio._id%>">
+        <% console.log(url);%>
+            <%var url = url.substring(6); %>
+                <h4><u>Profile Picture  :</u></h4><img src="<%=url%>" style=" width:300px;height:300px;">
+                <form method="POST" action="/ppdelete/?id=<%=portfolio._id%>">
 
-                <input class="btn btn-secondry" name="delete" id="delete" value="Delete" type="submit" style="float : right ;" />
-            </form>
-            <form method="POST" action="/ppupdate/?id=<%=portfolio._id%>" enctype="multipart/form-data">
-                <input class="btn btn-secondry" name="update" id="update" value="Update" type="submit" style="float :right ;" />
-                <input type="file" name="pp" style="float:right; ">
-            </form>
-            <%} else {%>
-                <h4><u>Profile Picture  :</u></h4><img src="/uploads/defaultpp.jpg" style="width:300px;height:300px;"/>
-
+                    <input class="btn btn-secondry" name="delete" id="delete" value="Delete" type="submit" style="float : right ;" />
+                </form>
                 <form method="POST" action="/ppupdate/?id=<%=portfolio._id%>" enctype="multipart/form-data">
                     <input class="btn btn-secondry" name="update" id="update" value="Update" type="submit" style="float :right ;" />
                     <input type="file" name="pp" style="float:right; ">
                 </form>
+                <%} else {%>
+                    <h4><u>Profile Picture  :</u></h4><img src="/uploads/defaultpp.jpg" style="width:300px;height:300px;" />
 
-                <%}%>
-                    <br>
-                    <%for (var i =(currentPage-1)*pageSize ; i<works.length&&i<(currentPage-1)*pageSize+pageSize;i++) {%>
-                        <hr>
-                        <% if (works[i].type==1) { %>
-                            <h4 class = "works" ><u>Work Details </u></h4>
-                            <h3><%=works[i].details%></h3>
-                            <form method="GET" action="/delete/<%=works[i]._id%>">
+                    <form method="POST" action="/ppupdate/?id=<%=portfolio._id%>" enctype="multipart/form-data">
+                        <input class="btn btn-secondry" name="update" id="update" value="Update" type="submit" style="float :right ;" />
+                        <input type="file" name="pp" style="float:right; ">
+                    </form>
 
-                                <input class="btn btn-secondry" name="delete " id="delete" value="Delete" type="submit" style="float:right; height:35px" />
-                            </form>
-                            <form method="POST" action="/update/?_id=<%=works[i]._id%>">
-                                <input class="btn btn-secondry " name="update " id="update" value="update" type="submit" style="float:right;height:35px" />
-                                <input type="text" name="texty" style="
-  float:right;
-     -moz-border-radius-topleft: 30px;
-    -webkit-border-top-left-radius: 30px;
-    border-top-left-radius: 30px;
-    -moz-border-radius-bottomleft: 30px;
-    -webkit-border-bottom-left-radius: 30px;
-    border-bottom-left-radius: 30px;
-    border: 1px solid #848484;
-    outline:0;
-    height:35px;
-    width: 275px;
-    padding-left:10px;; ">
-                            </form>
-
-                            <br>
+                    <%}%>
+                        <br>
+                        <%for (var i =(currentPage-1)*pageSize ; i<works.length&&i<(currentPage-1)*pageSize+pageSize;i++) {%>
                             <hr>
-                            <% }else{ if (works[i].type==2){%>
-                                <h4 class = "works" ><u>Extra Links for your work: </u></h4>
-                                <h3><a href="<%=works[i].details%>"><%=works[i].details%></a></h3>
+                            <% if (works[i].type==1) { %>
+                                <h4 class="works"><u>Work Details </u></h4>
+                                <h3><%=works[i].details%></h3>
                                 <form method="GET" action="/delete/<%=works[i]._id%>">
+
                                     <input class="btn btn-secondry" name="delete " id="delete" value="Delete" type="submit" style="float:right; height:35px" />
                                 </form>
                                 <form method="POST" action="/update/?_id=<%=works[i]._id%>">
@@ -76,52 +51,77 @@
 
                                 <br>
                                 <hr>
-                                <% }else {%>
-                                    <% var temp = works[i].details.substring(6);%>
-                                        <h4 class = "works" ><u>ScreenShot : </u></h4>
-                                        <br> <img src="<%=temp%>" style=" margin:auto ;width:100%; height:80%;">
-                                        <form method="GET" action="/delete/<%=works[i]._id%>">
-                                            <input class="btn btn-secondry" name="delete " id="delete" value="Delete" type="submit" style="float:right; height:35px" />
-                                        </form>
+                                <% }else{ if (works[i].type==2){%>
+                                    <h4 class="works"><u>Extra Links for your work: </u></h4>
+                                    <h3><a href="<%=works[i].details%>"><%=works[i].details%></a></h3>
+                                    <form method="GET" action="/delete/<%=works[i]._id%>">
+                                        <input class="btn btn-secondry" name="delete " id="delete" value="Delete" type="submit" style="float:right; height:35px" />
+                                    </form>
+                                    <form method="POST" action="/update/?_id=<%=works[i]._id%>">
+                                        <input class="btn btn-secondry " name="update " id="update" value="update" type="submit" style="float:right;height:35px" />
+                                        <input type="text" name="texty" style="
+  float:right;
+     -moz-border-radius-topleft: 30px;
+    -webkit-border-top-left-radius: 30px;
+    border-top-left-radius: 30px;
+    -moz-border-radius-bottomleft: 30px;
+    -webkit-border-bottom-left-radius: 30px;
+    border-bottom-left-radius: 30px;
+    border: 1px solid #848484;
+    outline:0;
+    height:35px;
+    width: 275px;
+    padding-left:10px;; ">
+                                    </form>
+
+                                    <br>
+                                    <hr>
+                                    <% }else {%>
+                                        <% var temp = works[i].details.substring(6);%>
+                                            <h4 class="works"><u>ScreenShot : </u></h4>
+                                            <br> <img src="<%=temp%>" style=" margin:auto ;width:100%; height:80%;">
+                                            <form method="GET" action="/delete/<%=works[i]._id%>">
+                                                <input class="btn btn-secondry" name="delete " id="delete" value="Delete" type="submit" style="float:right; height:35px" />
+                                            </form>
 
 
-                                        <br>
-                                        <br>
-                                        <hr>
-                                        <% }}}%>
+                                            <br>
+                                            <br>
+                                            <hr>
+                                            <% }}}%>
 
 
 
-                                            <% if (pageCount > 1) { %>
-                                                <ul class="pagination">
-                                                    <% if (currentPage > 1) { %>
-                                                        <li><a href="/viewyw/?page=1">&laquo;</a></li>
-                                                        <% } %>
-                                                            <% var i = 1;
+                                                <% if (pageCount > 1) { %>
+                                                    <ul class="pagination">
+                                                        <% if (currentPage > 1) { %>
+                                                            <li><a href="/viewyw/?page=1">&laquo;</a></li>
+                                                            <% } %>
+                                                                <% var i = 1;
 if (currentPage > 5) {
 i = +currentPage - 4;
 } %>
-                                                                <% if (i !== 1) { %>
-                                                                    <li class="disabled"><a href="#">...</a></li>
-                                                                    <% } %>
-                                                                        <% for (i; i<=pageCount; i++) { %>
-                                                                            <% if (currentPage == i) { %>
-                                                                                <li class="active"><span><%= i %> <span class="sr-only">(current)</span></span>
-                                                                                </li>
-                                                                                <% } else { %>
-                                                                                    <li>
-                                                                                        <a href="/viewyw/?page=<%= i %>">
-                                                                                            <%= i %>
-                                                                                        </a>
+                                                                    <% if (i !== 1) { %>
+                                                                        <li class="disabled"><a href="#">...</a></li>
+                                                                        <% } %>
+                                                                            <% for (i; i<=pageCount; i++) { %>
+                                                                                <% if (currentPage == i) { %>
+                                                                                    <li class="active"><span><%= i %> <span class="sr-only">(current)</span></span>
                                                                                     </li>
-                                                                                    <% } %>
-                                                                                        <% if (i == (+currentPage + 4)) { %>
-                                                                                            <li class="disabled"><a href="#">...</a></li>
-                                                                                            <% break; } %>
-                                                                                                <% } %>
-                                                                                                    <% if (currentPage != pageCount) { %>
-                                                                                                        <li><a href="/viewyw/?page=<%= pageCount %>">&raquo;</a></li>
-                                                                                                        <% } %>
-                                                </ul>
-                                                <% } %>
-                                                    <%include _footer1 %>
+                                                                                    <% } else { %>
+                                                                                        <li>
+                                                                                            <a href="/viewyw/?page=<%= i %>">
+                                                                                                <%= i %>
+                                                                                            </a>
+                                                                                        </li>
+                                                                                        <% } %>
+                                                                                            <% if (i == (+currentPage + 4)) { %>
+                                                                                                <li class="disabled"><a href="#">...</a></li>
+                                                                                                <% break; } %>
+                                                                                                    <% } %>
+                                                                                                        <% if (currentPage != pageCount) { %>
+                                                                                                            <li><a href="/viewyw/?page=<%= pageCount %>">&raquo;</a></li>
+                                                                                                            <% } %>
+                                                    </ul>
+                                                    <% } %>
+                                                        <%include _footer1 %>

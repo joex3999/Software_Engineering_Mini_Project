@@ -1,42 +1,39 @@
 <%include _header1 %>
-<div class = "page-header"><h1> Add Portfolio </h1></div>
+	<div class="page-header">
+		<h1> Add Portfolio </h1></div>
 
-<form action = "/addportfolio" method = "POST" enctype="multipart/form-data">
-<label> Profile Picture  : </label>
-<input type = "file" name= "pp" >
-<br>
-<hr>
+	<form action="/addportfolio" method="POST" enctype="multipart/form-data">
+		<label> Profile Picture  : </label>
+		<input type="file" name="pp">
+		<br>
+		<hr>
 
-<label> Your Name : </label>
-<input class = "form-control"  type = "text" name= "name"
-placeholder = "please enter your name  " >
-<br>
-<hr>
+		<label> Your Name : </label>
+		<input class="form-control" type="text" name="name" placeholder="please enter your name  ">
+		<br>
+		<hr>
 
-<label> Work Text: </label>
-<input class = "form-control"  type = "text" name= "details"
-placeholder = "please enter Details " >
-<br>
-<hr>
+		<label> Work Text: </label>
+		<input class="form-control" type="text" name="details" placeholder="please enter Details ">
+		<br>
+		<hr>
 
 
-<label> Work URL : </label>
-<input  class = "form-control" type = "text" name= "url"
-place holder = "please enter url"
->
-<br>
-<hr>
+		<label> Work URL : </label>
+		<input class="form-control" type="text" name="url" place holder="please enter url">
+		<br>
+		<hr>
 
-<button class = "btn btn-primary" type = "submit"> Add portfolio </button>
-</form>
-<%if(variab){%>
-<div class = "row show-hide-message" >
+		<button class="btn btn-primary" type="submit"> Add portfolio </button>
+	</form>
+	<%if(variab){%>
+		<div class="row show-hide-message">
 
-<div class = "alert alert-danger">
-		<h4>You have to insert at least one Work</h4>
-		</div>
+			<div class="alert alert-danger">
+				<h4><%=message%></h4>
 			</div>
-	<%}%>
+		</div>
+		<%}%>
 
 
-<% include  _footer1 %>
+			<% include  _footer1 %>
