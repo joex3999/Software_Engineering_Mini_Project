@@ -183,7 +183,7 @@
 	                        var currentPage = 1;
 	                    }
 
-
+							console.log(url);
 	                    res.render("yourwork.ejs", {
 	                        portfolio,
 	                        url,
@@ -287,7 +287,7 @@
 
 	    router.post('/ppupdate', upload.single('pp'), function(req, res) {
 
-
+	console.log("pass");
 	        var image = req.file;
 	        if (image) {
 	            Portfolio.findOneAndUpdate({

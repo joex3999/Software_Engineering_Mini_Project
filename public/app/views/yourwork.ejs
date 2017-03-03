@@ -2,7 +2,8 @@
     <h3><strong> <big><%= name %>'s</big></strong> Information : </h3>
     <hr>
     <%if(url!="public/uploads/defaultpp.jpg"){%>
-        <%var url = url.substring(7); %>
+      <% console.log(url);%>
+        <%var url = url.substring(6); %>
             <h4><u>Profile Picture  :</u></h4><img src="<%=url%>" style="width:300px;height:300px;">
             <form method="POST" action="/ppdelete/?id=<%=portfolio._id%>">
 
@@ -13,11 +14,11 @@
                 <input type="file" name="pp" style="float:right; ">
             </form>
             <%} else {%>
-                <h4><u>Profile Picture  :</u></h4><img src="/uploads/defaultpp.jpg" style="width:500px;height:300px; style = " float : right ; "/>
+                <h4><u>Profile Picture  :</u></h4><img src="/uploads/defaultpp.jpg" style="width:300px;height:300px;"/>
 
-<form   method = "POST " action = "/ppupdate/?id=<%=portfolio._id%>" enctype="multipart/form-data">
-                <input class="btn btn-secondry" name="update" id="update" value="Update" type="submit" style="float :right ;" />
-                <input type="file" name="pp" style="float:right; ">
+                <form method="POST" action="/ppupdate/?id=<%=portfolio._id%>" enctype="multipart/form-data">
+                    <input class="btn btn-secondry" name="update" id="update" value="Update" type="submit" style="float :right ;" />
+                    <input type="file" name="pp" style="float:right; ">
                 </form>
 
                 <%}%>
@@ -26,7 +27,7 @@
                         <hr>
                         <% if (works[i].type==1) { %>
                             <h4><u>Work Details </u></h4>
-                            <h3><a><%=works[i].details%></a></h3>
+                            <h3><%=works[i].details%></h3>
                             <form method="GET" action="/delete/<%=works[i]._id%>">
 
                                 <input class="btn btn-secondry" name="delete " id="delete" value="Delete" type="submit" style="float:right; height:35px" />

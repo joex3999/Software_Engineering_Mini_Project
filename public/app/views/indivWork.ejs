@@ -27,8 +27,8 @@
 
 
 
-<% if (pageCount > 1) { %>  
-<ul class="pagination">  
+<% if (pageCount > 1) { %>
+<ul class="pagination">
   <% if (currentPage > 1) { %>
       <li><a href="/viewwork/<%=username%>/?page=1">&laquo;</a></li>
   <% } %>
@@ -52,6 +52,6 @@
   <% if (currentPage != pageCount) { %>
       <li><a href="/viewwork/<%=username%>/?page=<%= pageCount %>">&raquo;</a></li>
   <% } %>
-</ul>  
-<% } %>  
+</ul>
+<% } %>
 <%include _footer1 %>
