@@ -21,9 +21,9 @@ UserSchema.pre('save', function(next) {// before saving The User this schema wil
     user.password = hash ;
     next();
   });
- 
-});     
- 
+
+});
+
 UserSchema.methods.comparePassword = function(password){
 
   return  bcrypt.compareSync(password,this.password);
@@ -40,4 +40,4 @@ UserSchema.methods.checkPassword = function(guess, done) {
   });
 };
 
-module.exports=mongoose.model('User',UserSchema); 
+var userss=module.exports=mongoose.model('User',UserSchema);
